@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Todo List</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f8;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .left {
+            width: 35%;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .right {
+            width: 65%;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+         input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        } 
+
+        .add-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+         th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #333;
+            color: white;
+        } 
+
+        .delete-btn {
+            background: red;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left, .right {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Todo List</h1>
+
+    <div class="container">
+
+        <!-- Left Side -->
+        <div class="left">
+
+            <h2>Add Your Task</h2>
+
+            <form id="todoForm">
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter your task"
+                >
+
+                <button type="submit" class="add-btn">
+                    Add Task
+                </button>
+            </form>
+
+        </div>
+
+        <!-- Right Side -->
+        <div class="right">
+
+            <h2>My Tasks</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Task Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="taskList">
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let form = document.getElementById("todoForm");
+
+        let input = document.getElementById("taskInput");
+
+        let table = document.getElementById("taskList");
+
+        let count = 0;
+
+        form.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let task = input.value.trim();
+
+            if (task === "") {
+                alert("Please enter your task");
+            }
+            else {
+
+                count++;
+
+                let tr = document.createElement("tr");
+
+                let td1 = document.createElement("td");
+                td1.textContent = count;
+
+                let td2 = document.createElement("td");
+                td2.textContent = task;
+
+                let td3 = document.createElement("td");
+
+                let btn = document.createElement("button");
+
+                btn.textContent = "Delete";
+                btn.className = "delete-btn";
+
+                btn.addEventListener("click", function() {
+                    tr.remove();
+                });
+
+                td3.appendChild(btn);
+
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+
+                table.appendChild(tr);
+
+                input.value = "";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
